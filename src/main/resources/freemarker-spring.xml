@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="freemarkerResult" class="jrouter.framework.result.freemarker.FreemarkerResult">
+        <property name="configuration" ref="freemarkerConfiguration" />
+        <property name="templatePath" value="${freemarkerTemplatePath}" />
+    </bean>
+
+    <!-- Freemarker Configuration -->
+    <bean id="freemarkerConfiguration" class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+        <property name="freemarkerSettings">
+            <util:properties location="classpath:freemarker.properties"/>
+        </property>
+        <property name="freemarkerVariables">
+            <!-- shared variables map -->
+            <util:map>
+                <entry key="${sharedVariablesName}" value-ref="sharedVariables"/>
+                <entry key="url">
+                    <bean class="jrouter.framework.result.freemarker.URLMethod">
+                        <property name="extension" value="${extension}"/>
+                    </bean>
+                </entry>
+            </util:map>
+        </property>
+    </bean>
+</beans>

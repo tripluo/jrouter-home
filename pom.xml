@@ -25,7 +25,7 @@
         <dependency>
             <groupId>net.jrouter</groupId>
             <artifactId>jrouter-servlet</artifactId>
-            <version>1.7.1</version>
+            <version>1.7.2</version>
         </dependency>
 
         <!-- javassist -->
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
-            <version>2.3.24-incubating</version>
+            <version>2.3.25-incubating</version>
         </dependency>
 
         <!-- springframework -->
@@ -64,7 +64,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.8</version>
+            <version>1.16.10</version>
             <scope>provided</scope>
         </dependency>
 
@@ -99,7 +99,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.4.0</version>
+                <version>1.5.0</version>
                 <configuration>
                     <classpathScope>compile</classpathScope>
                 </configuration>
@@ -113,7 +113,7 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.2.16.v20160414</version>
+                <version>9.2.18.v20160721</version>
                 <configuration>
                     <httpConnector>
                         <port>9999</port>
@@ -224,6 +224,6 @@
     </profiles>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>4.2.6.RELEASE</spring.version>
+        <spring.version>4.3.2.RELEASE</spring.version>
     </properties>
 </project>

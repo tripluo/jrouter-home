@@ -19,13 +19,13 @@
                     <h3>最新下载</h3>
                     <ul>
                         <li>
-                            <a href="${sharedVariables['jrouterDownloadURL']}/net/jrouter/jrouter/1.7.1/jrouter-1.7.1.jar" target="_blank">
-                                jrouter-1.7.1.jar
+                            <a href="${sharedVariables['jrouterDownloadURL']}/net/jrouter/jrouter/1.7.2/jrouter-1.7.2.jar" target="_blank">
+                                jrouter-1.7.2.jar
                             </a>
                         </li>
                         <li>
-                            <a href="${sharedVariables['jrouterDownloadURL']}/net/jrouter/jrouter/1.7.1/jrouter-1.7.1-sources.jar" target="_blank">
-                                jrouter-1.7.1-sources.jar
+                            <a href="${sharedVariables['jrouterDownloadURL']}/net/jrouter/jrouter/1.7.2/jrouter-1.7.2-sources.jar" target="_blank">
+                                jrouter-1.7.2-sources.jar
                             </a>
                         </li>
                         <li>

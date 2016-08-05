@@ -1,5 +1,7 @@
 package jrouter.framework.util;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Map;
 import jrouter.servlet.ServletThreadContext;
 import jrouter.util.StringUtil;
@@ -59,5 +61,27 @@ public abstract class ParameterUtil {
     public static Long getParameterLong(String name, Long def) {
         String value = getParameter(name);
         return isNumeric(value) ? Long.valueOf(value) : def;
+    }
+
+    /**
+     * 转换Request Parameters为String。
+     */
+    public static String parseRequestParameters(Map<String, String[]> requestParameters) {
+        Iterator<Map.Entry<String, String[]>> i = requestParameters.entrySet().iterator();
+        if (!i.hasNext())
+            return "{}";
+        StringBuilder sb = new StringBuilder();
+        sb.append('{');
+        for (;;) {
+            Map.Entry<String, String[]> e = i.next();
+            String key = e.getKey();
+            String[] value = e.getValue();
+            sb.append(key);
+            sb.append('=');
+            sb.append(Arrays.toString(value));
+            if (!i.hasNext())
+                return sb.append('}').toString();
+            sb.append(',').append(' ');
+        }
     }
 }

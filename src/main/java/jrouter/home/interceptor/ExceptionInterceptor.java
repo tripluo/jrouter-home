@@ -1,6 +1,7 @@
 package jrouter.home.interceptor;
 
 import jrouter.annotation.Interceptor;
+import jrouter.framework.util.ParameterUtil;
 import jrouter.impl.InvocationProxyException;
 import jrouter.servlet.ServletActionInvocation;
 import jrouter.servlet.ServletThreadContext;
@@ -27,7 +28,8 @@ public class ExceptionInterceptor {
             if (e instanceof InvocationProxyException) {
                 e = (Exception) ((InvocationProxyException) e).getSource();
             }
-            LOG.error(invocation.getActionPath(), e);
+            String actionInfo = invocation.getActionPath() + " -> " + ParameterUtil.parseRequestParameters(invocation.getRequestParameters());
+            LOG.error(actionInfo, e);
             //store exception
             ServletThreadContext.setException(e);
         }

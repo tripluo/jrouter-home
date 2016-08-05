@@ -34,7 +34,7 @@
             out.write("DefaultInterceptorStack : " + af.getDefaultInterceptorStack() + "<br/>");
             out.write("DefaultResultType : " + af.getDefaultResultType() + "<br/>");
             out.write("ObjectFactory : " + af.getObjectFactory()+ "<br/>");
-            out.write("ProxyFactory : " + af.getProxyFactory()+ "<br/>");
+            out.write("MethodInvokerFactory : " + af.getMethodInvokerFactory()+ "<br/>");
             out.write("ConverterFactory : " + af.getConverterFactory()+ "<br/>");
 
             //InterceptorStacks

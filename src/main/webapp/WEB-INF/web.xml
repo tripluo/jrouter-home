@@ -24,7 +24,7 @@
         <filter-name>JRouter-home-Filter</filter-name>
         <filter-class>jrouter.servlet.filter.SpringBeanJRouterFilter</filter-class>
         <init-param>
-            <description>Character encoding (optional) (default:UTF-8)</description>
+            <description>Character encoding (optional)</description>
             <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>
         </init-param>

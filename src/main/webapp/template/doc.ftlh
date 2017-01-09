@@ -148,7 +148,7 @@
                         拦截栈 / 拦截器配置
                     </h3>
                     <p>
-                        首先，<a href="${sharedVariables['jrouterSourceURL']}/java/jrouter/impl/DefaultActionFactory.java" target="_blank">容器</a>会提供一个默认全局拦截栈<code>defaultInterceptorStack</code>属性，
+                        首先，<a href="${sharedVariables['jrouterSourceURL']}/java/jrouter/impl/PathActionFactory.java" target="_blank">容器</a>会提供一个默认全局拦截栈<code>defaultInterceptorStack</code>属性，
                         也可能为<code>null</code>。
                     </p>
                     <p>
@@ -252,7 +252,7 @@
                         结果对象配置
                     </h3>
                     <p>
-                        首先，<a href="${sharedVariables['jrouterSourceURL']}/java/jrouter/impl/DefaultActionFactory.java" target="_blank">容器</a>会提供一个默认全局结果类型<code>defaultResultType</code>属性，
+                        首先，<a href="${sharedVariables['jrouterSourceURL']}/java/jrouter/impl/PathActionFactory.java" target="_blank">容器</a>会提供一个默认全局结果类型<code>defaultResultType</code>属性，
                         也可能为<code>null</code>。
                     </p>
                     <p>
@@ -303,8 +303,8 @@
                     <h3>关于容器</h3>
                     <p>
                         上面多次提及到的容器，实际上即指实现<a href="${sharedVariables['jrouterSourceURL']}/java/jrouter/ActionFactory.java" target="_blank">ActionFactory接口</a>
-                        的<a href="${sharedVariables['jrouterSourceURL']}/java/jrouter/impl/DefaultActionFactory.java" target="_blank">默认容器DefaultActionFactory</a>。
-                        DefaultActionFactory可被继承，其也提供了诸多<code>protected</code>方法方便复写做自定义的数据处理。
+                        的<a href="${sharedVariables['jrouterSourceURL']}/java/jrouter/impl/PathActionFactory.java" target="_blank">默认容器PathActionFactory</a>。
+                        PathActionFactory可被继承，其也提供了诸多<code>protected</code>方法方便复写做自定义的数据处理。
                     </p>
                     <p>
                         容器初始化属性配置参见<a href="${sharedVariables['jrouterSourceURL']}/resources/jrouter.properties" target="_blank">jrouter.properties</a>。
@@ -340,7 +340,7 @@
                     </p>
                     <p>
                         容器的运行时上下文对象
-                        <a href="${sharedVariables['jrouterSourceURL']}/java/jrouter/impl/DefaultActionInvocation.java" target="_blank">DefaultActionInvocation</a>
+                        <a href="${sharedVariables['jrouterSourceURL']}/java/jrouter/impl/PathActionInvocation.java" target="_blank">PathActionInvocation</a>
                         默认将自身作为参数注入至调用方法的参数中，所以测试用例方法（包括Action、拦截器、结果对象、结果类型）中的
                         <a href="${sharedVariables['jrouterSourceURL']}/java/jrouter/ActionInvocation.java" target="_blank">ActionInvocation</a>
                         参数由此而来。

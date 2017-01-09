@@ -119,8 +119,8 @@
             out.write("<hr/>");
 
             out.write("<a name='ActionsCache'><h2>ActionsCache : </h2></a>");
-            if (af instanceof DefaultActionFactory) {
-                Map<String, Object> cache = ((DefaultActionFactory) af).getActionCache();
+            if (af instanceof PathActionFactory) {
+                Map<String, Object> cache = ((PathActionFactory) af).getActionCache();
                 for (Map.Entry<String, Object> e : cache.entrySet()) {
                     out.write("ActionCache : " + e.getKey() + " ---> " + e.getValue() + "<br/>");
                     out.write("- - - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - -<br/> ");

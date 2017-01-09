@@ -19,7 +19,7 @@
     <!-- JRouter ActionFactory -->
     <bean id="actionFactory" class="jrouter.servlet.spring.ObjectHandlerActionFactoryBean">
         <!--<property name="actionFactoryClass" value="jrouter.servlet.ObjectHandlerActionFactory" />-->
-        <property name="defaultObjectResultType" value="${defaultObjectResultType}" />
+        <property name="defaultObjectResultType" value="${actionFactory.defaultObjectResultType}" />
         <property name="actionFactoryProperties">
             <util:properties location="classpath:jrouterActionFactory.properties" />
         </property>

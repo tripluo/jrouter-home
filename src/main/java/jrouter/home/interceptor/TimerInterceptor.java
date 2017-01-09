@@ -24,7 +24,7 @@ public class TimerInterceptor {
     public static final String TIMER = "timer";
 
     //default 5s
-    @Value("${slowTimeMillis:5000}")
+    @Value("${common.slowTimeMillis:5000}")
     private long slowTimeMillis = Long.MAX_VALUE;
 
     /**
@@ -58,9 +58,9 @@ public class TimerInterceptor {
         return result;
     }
 
-    protected String buildMessage(long executionTime, ActionInvocation invocation) {
+    protected String buildMessage(long executionTime, ServletActionInvocation invocation) {
         StringBuilder message = new StringBuilder(64);
-        message.append("Executed action [").append(invocation.getActionProxy().getPath());
+        message.append("Executed action [").append(invocation.getActionPath());
         message.append("] took ").append(executionTime).append(" ms.");
         return message.toString();
     }

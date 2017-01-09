@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.jrouter</groupId>
     <artifactId>jrouter-home</artifactId>
-    <version>1.0</version>
+    <version>${jrouter.version}</version>
     <packaging>war</packaging>
     <name>JRouter-home</name>
     <url>https://github.com/innjj/jrouter-home</url>
@@ -13,26 +13,26 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.21</version>
+            <version>1.7.22</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.7.21</version>
+            <version>1.7.22</version>
         </dependency>
 
         <!-- jrouter -->
         <dependency>
             <groupId>net.jrouter</groupId>
             <artifactId>jrouter-servlet</artifactId>
-            <version>1.7.2</version>
+            <version>${jrouter.version}</version>
         </dependency>
 
         <!-- javassist -->
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.20.0-GA</version>
+            <version>3.21.0-GA</version>
         </dependency>
 
         <!-- freemarker -->
@@ -64,7 +64,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.10</version>
+            <version>1.16.12</version>
             <scope>provided</scope>
         </dependency>
 
@@ -87,7 +87,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.6.0</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <source>1.6</source>
@@ -107,7 +107,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.0.0</version>
             </plugin>
             <!-- jetty插件 JDK 1.7 -->
             <plugin>
@@ -138,7 +138,7 @@
                 <dependency>
                     <groupId>ch.qos.logback</groupId>
                     <artifactId>logback-classic</artifactId>
-                    <version>1.1.7</version>
+                    <version>1.1.8</version>
                 </dependency>
             </dependencies>
         </profile>
@@ -152,7 +152,7 @@
                 <dependency>
                     <groupId>ch.qos.logback</groupId>
                     <artifactId>logback-classic</artifactId>
-                    <version>1.1.7</version>
+                    <version>1.1.8</version>
                 </dependency>
             </dependencies>
             <build>
@@ -224,6 +224,7 @@
     </profiles>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>4.3.2.RELEASE</spring.version>
+        <spring.version>4.3.4.RELEASE</spring.version>
+        <jrouter.version>1.7.3</jrouter.version>
     </properties>
 </project>

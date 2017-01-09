@@ -43,7 +43,7 @@
                     <h3>简单易用</h3>
                     <ul>
                         <li>
-                            一个jar包（120+KB），基本无依赖（仅需 <a href="http://www.slf4j.org/download.html" target="_blank">slf4j</a>），兼容
+                            一个jar包（130+KB），基本无依赖（仅需 <a href="http://www.slf4j.org/download.html" target="_blank">slf4j</a>），兼容
                             <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank">jdk 1.6+</a>
                             。
                         </li>

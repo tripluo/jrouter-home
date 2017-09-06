@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>JRouter Home</title>
+        <meta name="keywords" content="JRouter, JRouter Home,Java开源,Java容器,架构设计" />
+        <meta name="description" content="jrouter是一个基于对象方法架构的开源轻量级Java容器。它专注于方法的映射、调用、拦截和结果处理，采用基于配置和注解的方式来抽取和收集程序中对象的方法（method）以用于HTTP控制器，Web服务，RPC，各种应用等。" />
+        <meta th:replace="~{/template_home :: header}" />
+        <!--/*-->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="../css/bootstrap.css" />
+        <link rel="stylesheet" href="../css/blog.css" />
+        <!--*/-->
+    </head>
+    <body>
+        <!--/*-->
+        <div class="blog-masthead">
+            <div class="container">
+                <nav class="blog-nav">
+                    <a class="blog-nav-item active" href="#" >
+                        Home 首页
+                    </a>
+                    <a class="blog-nav-item " href="./doc.htm" >
+                        Documentation 文档
+                    </a>
+                    <a class="blog-nav-item " href="./downloads.htm" >
+                        Downloads 下载
+                    </a>
+                    <a class="blog-nav-item " href="./about.htm" >
+                        About 关于
+                    </a>
+                </nav>
+            </div>
+        </div>
+        <!--*/-->
+        <div class="container" th:replace="~{/template_home :: body('home', '' ,  ~{::div#content})}">
+            <div id="content">
+                <div class="blog-header">
+                    <h1 class="blog-title">JRouter</h1>
+                    <p class="lead blog-description">
+                        一个基于对象方法架构的<a th:href="|${sharedVariables['jrouterHomeURL']}/|" href="https://github.com/innjj/jrouter/" target="_blank">开源轻量级Java容器</a>。
+                        专注于方法的映射、调用、拦截和结果处理，<br/>
+                        采用基于配置和注解的方式来抽取和收集程序中对象的方法（method）以用于HTTP控制器，<br/>
+                        Web服务，RPC，各种应用等。
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-sm-10 blog-main">
+                        <div class="blog-post">
+                            <h2 class="blog-post-title">特点</h2>
+                            <hr>
+                            <h3>设计</h3>
+                            <p>针对方法，提供基于注解(<a th:href="|${sharedVariables['jrouterSourceURL']}/java/jrouter/annotation/|" href="https://github.com/innjj/jrouter/tree/master/src/main/java/jrouter/annotation/" target="_blank">@Annotation</a>)的配置：</p>
+                            <ul>
+                                <li>命名空间（Namespace）</li>
+                                <li>行为定义（Action）</li>
+                                <li>拦截器（Interceptor）</li>
+                                <li>拦截栈（InterceptorStack）</li>
+                                <li>结果对象（Result）</li>
+                                <li>结果类型（ResultType）</li>
+                            </ul>
+
+                            <h3>方法调用流程</h3>
+                            <p>
+                                <img th:src="|${sharedVariables['jrouterHomeURL']}/raw/master/outline.png|" src="https://github.com/innjj/jrouter/raw/master/outline.png" title="JRouter方法调用流程" alt="JRouter方法调用流程"/>
+                            </p>
+
+                            <h3>简单易用</h3>
+                            <ul>
+                                <li>
+                                    一个jar包（130+KB），基本无依赖（仅需 <a href="http://www.slf4j.org/download.html" target="_blank">slf4j</a>），兼容
+                                    <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank">jdk 1.6+</a>
+                                    。
+                                </li>
+                                <li>
+                                    提供快捷地与
+                                    <a th:href="|${sharedVariables['jrouterHomeURL']}#springframework-integration|" href="https://github.com/innjj/jrouter#springframework-integration" target="_blank">
+                                        springframework集成。
+                                    </a>
+                                </li>
+                                <li>
+                                    <a th:href="|${sharedVariables['jrouterHomeURL']}/|" target="_blank">完全开源</a>，
+                                    <a th:href="|${sharedVariables['jrouterHomeURL']}/tree/master/src/main/resources/LICENSE.txt|" target="_blank">Apache License, Version 2.0</a>，
+                                    <a th:href="|${sharedVariables['jrouterHomeURL']}#maven|" href="https://github.com/innjj/jrouter#maven" target="_blank">支持Maven。</a>
+                                </li>
+                            </ul>
+
+                            <h3>性能 / 安全</h3>
+                            <ul>
+                                <li>快速地方法调用，方法缓存。</li>
+                                <li>
+                                    默认提供基于<a href="http://jboss-javassist.github.io/javassist/" target="_blank">javassist</a>的字节码增强。
+                                </li>
+                                <li>
+                                    类似大多数框架，容器初始化封装数据后趋于一个稳定状态，对外接口只提供不变数据，方法调用接口不影响内部数据，因而是线程安全的。
+                                </li>
+                                <li>
+                                    努力完善的<a th:href="|${sharedVariables['jrouterHomeURL']}/tree/master/src/test/java/jrouter/|" target="_blank">各种测试。</a>
+                                </li>
+                            </ul>
+
+                            <h3>支持</h3>
+                            <ul>
+                                <li>
+                                    <a th:href="|${sharedVariables['jrouter-servletHomeURL']}/|" href="https://github.com/innjj/jrouter-servlet/" target="_blank">HTTP servlet支持。</a>
+                                </li>
+                            </ul>
+
+                        </div><!-- /.blog-post -->
+
+                    </div><!-- /.blog-main -->
+
+                </div><!-- /.row -->
+            </div>
+        </div>
+        <footer th:replace="~{/template_home :: footer(false)}">
+            <footer class="blog-footer">
+                <p>&copy; 2015
+                    <a th:href="${url.toURL('/index')}">JRouter.NET</a>
+                    <small>
+                        [
+                        <a href="http://www.miitbeian.gov.cn/" target="_blank">
+                            沪ICP备15053025号
+                        </a>
+                        ]
+                    </small>
+                </p>
+                <p>
+                    <a href="#">Back to top</a>
+                    [(${_executionTime?:0})] ms
+                </p>
+            </footer>
+            <script type="text/javascript" th:src="|${base?:''}/js/jquery.js|" src="/js/jquery.js"></script>
+            <script type="text/javascript" th:src="|${base?:''}/js/bootstrap.js|" src="/js/bootstrap.js"></script>
+            <script type="text/javascript">
+                //<![CDATA[
+                $(document).ready(function () {
+                });
+                //]]>
+            </script>
+        </footer>
+    </body>
+</html>

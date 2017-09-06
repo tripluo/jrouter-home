@@ -9,34 +9,35 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import jrouter.annotation.ResultType;
 import jrouter.servlet.ServletActionInvocation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
 import org.springframework.web.context.ServletContextAware;
 
 /**
  * FreemarkerResult. Require springframework container.
  */
+@Slf4j
 public class FreemarkerResult implements ServletContextAware {
-
-    private static final Logger LOG = LoggerFactory.getLogger(FreemarkerResult.class);
 
     public static final String TYPE = "freemarker";
 
+    @lombok.Getter
+    @lombok.Setter
     private Configuration configuration;
 
+    @lombok.Setter
     private String templatePath = "/";
 
     @Override
     public void setServletContext(ServletContext servletContext) {
-        Assert.notNull(configuration);
+        Assert.notNull(configuration, "Configuration can't be null.");
         //after ServletThreadContext setted
         String templateFile = servletContext.getRealPath(templatePath);
-        LOG.info("Freemarker version [{}]", Configuration.getVersion());
+        log.info("Freemarker version [{}]", Configuration.getVersion());
         configuration.setServletContextForTemplateLoading(servletContext, templatePath);
-        LOG.info("Freemarker setDirectoryForTemplateLoading [{}]", templateFile);
+        log.info("Freemarker setDirectoryForTemplateLoading [{}]", templateFile);
 
-        LOG.info("Freemarker getObjectWrapper [{}]", configuration.getObjectWrapper());
+        log.info("Freemarker getObjectWrapper [{}]", configuration.getObjectWrapper());
     }
 
     @ResultType(type = TYPE)
@@ -46,7 +47,7 @@ public class FreemarkerResult implements ServletContextAware {
             if (location.charAt(0) != '/') {
                 location = "/" + location;
             }
-            TemplateModel model = createModel(invocation);
+            TemplateModel model = createTemplateModel(invocation);
             result(location, model, invocation);
         }
     }
@@ -84,13 +85,13 @@ public class FreemarkerResult implements ServletContextAware {
     }
 
     /**
-     * Create Model.
+     * Create TemplateModel.
      *
      * @param invocation the ServletActionInvocation.
      *
      * @return TemplateModel.
      */
-    protected TemplateModel createModel(ServletActionInvocation invocation) {
+    protected TemplateModel createTemplateModel(ServletActionInvocation invocation) {
         ServletContext servletContext = invocation.getServletContext();
         HttpServletRequest request = invocation.getRequest();
         FreemarkerScopesHashModel model = new FreemarkerScopesHashModel(configuration.getObjectWrapper(), servletContext, request, invocation.getContextMap());
@@ -105,18 +106,6 @@ public class FreemarkerResult implements ServletContextAware {
 
     protected void postTemplateProcess(HttpServletRequest request, HttpServletResponse response,
             Template template, TemplateModel data) {
-    }
-
-    public void setTemplatePath(String templatePath) {
-        this.templatePath = templatePath;
-    }
-
-    public void setConfiguration(Configuration configuration) {
-        this.configuration = configuration;
-    }
-
-    public Configuration getConfiguration() {
-        return configuration;
     }
 
 }

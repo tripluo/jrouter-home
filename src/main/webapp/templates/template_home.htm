@@ -1,0 +1,73 @@
+
+
+<!-- header -->
+<th:block th:fragment="header">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta th:content="|${#execInfo.templateName} -  ${#dates.createNow()}|" name="Template Message" />
+    <link rel="shortcut icon" th:href="|${base?:''}/favicon.ico|" type="image/x-icon" />
+    <link rel="stylesheet" th:href="|${base?:''}/css/bootstrap.css|" href="/css/bootstrap.css" />
+    <link rel="stylesheet" th:href="|${base?:''}/css/blog.css|" href="/css/blog.css" />
+</th:block>
+
+
+
+<!-- body -->
+<th:block th:fragment="body (navbar, sidebar, contentDiv)">
+    <div class="blog-masthead">
+        <div class="container">
+            <nav class="blog-nav">
+                <a th:with="isHome=(${navbar}=='home')" th:class="'blog-nav-item ' + (${isHome}?'active':'')" class="blog-nav-item active"
+                   th:href="(${isHome}?'#':${url.toURL('/home')})" href="./index.jj" >
+                    Home 首页
+                </a>
+                <a th:with="isDoc=(${navbar}=='doc')"  th:class="'blog-nav-item ' + (${isDoc}?'active':'')"  class="blog-nav-item "
+                   th:href="(${isDoc}?'#':${url.toURL('/doc')})" href="./doc.jj" >
+                    Documentation 文档
+                </a>
+                <a th:with="isDownloads=(${navbar}=='downloads')"  th:class="'blog-nav-item ' + (${isDownloads}?'active':'')" class="blog-nav-item"
+                   th:href="(${isDownloads}?'#':${url.toURL('/downloads')})" href="./downloads.jj" >
+                    Downloads 下载
+                </a>
+                <a th:with="isAbout=(${navbar}=='about')"  th:class="'blog-nav-item ' + (${isAbout}?'active':'')"  class="blog-nav-item"
+                   th:href="(${isAbout}?'#':${url.toURL('/about')})" href="./about.jj" >
+                    About 关于
+                </a>
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+        <th:block th:replace="${contentDiv}" />
+    </div>
+</th:block>
+
+
+
+<!-- footer -->
+<th:block th:fragment="footer (fixedBottom?:false)">
+    <footer class="blog-footer">
+        <p>&copy; 2015
+            <a th:href="${url.toURL('/index')}">JRouter.NET</a>
+            <small>
+                [
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">
+                    沪ICP备15053025号
+                </a>
+                ]
+            </small>
+        </p>
+        <p>
+            <a href="#">Back to top</a>
+            [(${_executionTime?:0})] ms
+        </p>
+    </footer>
+    <script type="text/javascript" th:src="|${base?:''}/js/jquery.js|" src="/js/jquery.js"></script>
+    <script type="text/javascript" th:src="|${base?:''}/js/bootstrap.js|" src="/js/bootstrap.js"></script>
+    <script type="text/javascript">
+        //<![CDATA[
+        $(document).ready(function () {
+        });
+        //]]>
+    </script>
+</th:block>

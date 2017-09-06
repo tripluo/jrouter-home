@@ -37,7 +37,8 @@
         <property name="resultTypes">
             <list>
                 <value>jrouter.servlet.result.ServletResult</value>
-                <ref bean="freemarkerResult" />
+                <!--<ref bean="freemarkerResult" />-->
+                <ref bean="thymeleafResult" />
             </list>
         </property>
         <!-- scan classes properties -->
@@ -58,6 +59,8 @@
                                   ignore-unresolvable="true"
                                   location="classpath:jrouter-home.properties" />
 
+    <!-- thymeleaf -->
+    <import resource="thymeleaf-spring.xml" />
     <!-- freemarker -->
     <import resource="freemarker-spring.xml" />
 </beans>

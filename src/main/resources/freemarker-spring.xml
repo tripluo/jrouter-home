@@ -12,7 +12,7 @@
 
     <bean id="freemarkerResult" class="jrouter.framework.result.freemarker.FreemarkerResult">
         <property name="configuration" ref="freemarkerConfiguration" />
-        <property name="templatePath" value="${freemarkerResult.templatePath}" />
+        <property name="templatePath" value="${templateResult.templatePath}" />
     </bean>
 
     <!-- Freemarker Configuration -->
@@ -23,10 +23,10 @@
         <property name="freemarkerVariables">
             <!-- shared variables map -->
             <util:map>
-                <entry key="${freemarkerConfiguration.sharedVariablesName}" value-ref="sharedVariables"/>
+                <entry key="${templateConfiguration.sharedVariablesName}" value-ref="sharedVariables"/>
                 <entry key="url">
                     <bean class="jrouter.framework.result.freemarker.URLMethod">
-                        <property name="extension" value="${freemarkerConfiguration.url.extension}"/>
+                        <property name="extension" value="${templateConfiguration.url.extension}"/>
                     </bean>
                 </entry>
             </util:map>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>JRouter Downloads</title>
+        <meta name="keywords" content="JRouter Downloads 下载" />
+        <meta name="description" content="JRouter Downloads 下载" />
+        <meta th:replace="~{/template_home :: header}" />
+        <!--/*-->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="../css/bootstrap.css" />
+        <link rel="stylesheet" href="../css/blog.css" />
+        <!--*/-->
+    </head>
+    <body>
+        <div th:replace="~{/template_home :: body('downloads', '' ,  ~{::div#content})}">
+            <div id="content">
+                <div class="row">
+                    <div class="blog-header">
+                    </div>
+                    <div class="col-sm-10 blog-main">
+                        <div class="blog-post">
+                            <h2>Downloads 下载</h2>
+                            <hr>
+                            <a name="Laest"></a>
+                            <h3>最新下载</h3>
+                            <ul>
+                                <li>
+                                    <a th:href="|${sharedVariables['jrouterDownloadURL']}/net/jrouter/jrouter/1.7.4/jrouter-1.7.4.jar|" target="_blank">
+                                        jrouter-1.7.4.jar
+                                    </a>
+                                </li>
+                                <li>
+                                    <a th:href="|${sharedVariables['jrouterDownloadURL']}/net/jrouter/jrouter/1.7.4/jrouter-1.7.4-sources.jar|" target="_blank">
+                                        jrouter-1.7.4-sources.jar
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://github.com/innjj/inn4j-repository/tree/master/repo/jrouter/jrouter/" target="_blank">
+                                        历史版本
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <hr />
+                            <a name="其它"></a>
+                            <h3>其它</h3>
+                            <p>
+                                一个方便
+                                <a th:href="|${url.toURL('/showFactoryStatus')}|" target="_blank">
+                                    查看容器各参数的工具
+                                </a>
+                                ，当然首先必须能够获取得到
+                                <a th:href="|${sharedVariables['jrouterSourceURL']}/java/jrouter/ActionFactory.java|" target="_blank">ActionFactory</a>对象。
+                                <br />
+                                <a th:href="|${base?:''}/factory-status.jsp|" target="_blank">点击查看本站的相关参数</a>。
+                            </p>
+                        </div><!-- /.blog-post -->
+                    </div><!-- /.blog-main -->
+                </div><!-- /.row -->
+            </div>
+        </div>
+        <footer th:replace="~{/template_home :: footer(false)}" />
+    </body>
+</html>

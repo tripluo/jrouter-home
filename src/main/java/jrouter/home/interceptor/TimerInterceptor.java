@@ -1,12 +1,9 @@
 package jrouter.home.interceptor;
 
-import jrouter.ActionInvocation;
 import jrouter.annotation.Interceptor;
 import jrouter.servlet.ServletActionInvocation;
-import jrouter.servlet.ServletThreadContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
@@ -48,7 +45,7 @@ public class TimerInterceptor {
                 msg = buildMessage(executionTime, invocation);
                 LOG.info(msg);
             }
-            if (executionTime > slowTimeMillis) {
+            if (SLOW_ACTION_LOG.isWarnEnabled() && executionTime > slowTimeMillis) {
                 if (msg == null)
                     msg = buildMessage(executionTime, invocation);
                 SLOW_ACTION_LOG.warn(msg);

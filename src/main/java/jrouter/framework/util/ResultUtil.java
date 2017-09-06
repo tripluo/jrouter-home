@@ -1,6 +1,7 @@
 package jrouter.framework.util;
 
 import jrouter.framework.result.freemarker.FreemarkerResult;
+import jrouter.framework.result.thymeleaf.ThymeleafResult;
 import jrouter.servlet.result.ServletResult;
 
 /**
@@ -11,6 +12,10 @@ public abstract class ResultUtil {
     public static final char PATH_SEPARATOR = '/';
 
     private ResultUtil() {
+    }
+
+    public static String renderThymeleaf(String templatePath) {
+        return render(ThymeleafResult.TYPE, templatePath);
     }
 
     public static String renderFreemarker(String templatePath) {

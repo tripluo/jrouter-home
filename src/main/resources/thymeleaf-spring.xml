@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="thymeleafResult" class="jrouter.framework.result.thymeleaf.ThymeleafResult">
+        <property name="templateEngine" ref="templateEngine" />
+        <property name="staticVariables">
+            <!-- shared variables map -->
+            <util:map>
+                <entry key="${templateConfiguration.sharedVariablesName}" value-ref="sharedVariables"/>
+                <entry key="url">
+                    <bean class="jrouter.framework.service.URLService">
+                        <property name="extension" value="${templateConfiguration.url.extension}"/>
+                    </bean>
+                </entry>
+            </util:map>
+        </property>
+    </bean>
+
+    <!-- SpringResourceTemplateResolver automatically integrates with Spring's own -->
+    <!-- resource resolution infrastructure, which is highly recommended.          -->
+    <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+        <property name="prefix" value="/templates" />
+        <property name="suffix" value=".htm" />
+        <property name="forceSuffix" value="false" />
+        <!-- HTML is the default value, added here for the sake of clarity.          -->
+        <property name="templateMode" value="HTML" />
+        <!-- Template cache is true by default. Set to false if you want             -->
+        <!-- templates to be automatically updated when modified.                    -->
+        <property name="cacheable" value="${templateConfiguration.cacheable:true}" />
+        <!--<property name="cacheablePatterns" value="true" />-->
+        <property name="characterEncoding" value="${common.characterEncoding:UTF-8}" />
+    </bean>
+
+    <!-- SpringTemplateEngine automatically applies SpringStandardDialect and      -->
+    <!-- enables Spring's own MessageSource message resolution mechanisms.         -->
+    <bean id="templateEngine"  class="org.thymeleaf.spring4.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver" />
+        <!-- Enabling the SpringEL compiler with Spring 4.2.4 or newer can speed up  -->
+        <!-- execution in most scenarios, but might be incompatible with specific    -->
+        <!-- cases when expressions in one template are reused across different data -->
+        <!-- ypes, so this flag is "false" by default for safer backwards            -->
+        <!-- compatibility.                                                          -->
+        <property name="enableSpringELCompiler" value="true" />
+    </bean>
+</beans>

@@ -13,12 +13,18 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.22</version>
+            <version>1.7.25</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.7.22</version>
+            <version>1.7.25</version>
+        </dependency>
+        <!-- logback -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
         </dependency>
 
         <!-- jrouter -->
@@ -35,11 +41,18 @@
             <version>3.21.0-GA</version>
         </dependency>
 
+        <!-- thymeleaf -->
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring4</artifactId>
+            <version>3.0.7.RELEASE</version>
+        </dependency>
+
         <!-- freemarker -->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
-            <version>2.3.25-incubating</version>
+            <version>2.3.26-incubating</version>
         </dependency>
 
         <!-- springframework -->
@@ -64,7 +77,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.12</version>
+            <version>1.16.18</version>
             <scope>provided</scope>
         </dependency>
 
@@ -87,7 +100,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>3.6.2</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <source>1.6</source>
@@ -99,7 +112,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.5.0</version>
+                <version>1.6.0</version>
                 <configuration>
                     <classpathScope>compile</classpathScope>
                 </configuration>
@@ -107,21 +120,20 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
             </plugin>
             <!-- jetty插件 JDK 1.7 -->
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.2.18.v20160721</version>
+                <version>9.2.21.v20170120</version>
                 <configuration>
                     <httpConnector>
                         <port>9999</port>
                     </httpConnector>
                     <webApp>
-                        <contextPath>/${project.name}</contextPath>
+                        <contextPath>/</contextPath>
                         <defaultsDescriptor>${basedir}/src/main/webapp/WEB-INF/webdefault.xml</defaultsDescriptor>
-                        <descriptor>${basedir}/src/main/webapp/WEB-INF/web.xml</descriptor>
                     </webApp>
                 </configuration>
             </plugin>
@@ -129,75 +141,12 @@
     </build>
     <profiles>
         <profile>
-            <id>default</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <dependencies>
-                <!-- logback -->
-                <dependency>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                    <version>1.1.8</version>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
             <id>production</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
-            <dependencies>
-                <!-- logback -->
-                <dependency>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                    <version>1.1.8</version>
-                </dependency>
-            </dependencies>
             <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <configuration>
-                            <packagingExcludes>
-                                **test**,
-                                **/test/**,
-                            </packagingExcludes>
-                            <webResources>
-                                <resource>
-                                    <directory>production</directory>
-                                    <!-- override the destination directory for this resource -->
-                                    <!--<targetPath>WEB-INF</targetPath>-->
-                                    <!-- enable filtering -->
-                                    <filtering>true</filtering>
-                                </resource>
-                            </webResources>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>log4j</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <dependencies>
-                <!-- log4j -->
-                <dependency>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                    <version>1.2.17</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                    <version>1.7.21</version>
-                </dependency>
-            </dependencies>
-            <build>
+                <finalName>${artifactId}</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -224,7 +173,7 @@
     </profiles>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>4.3.4.RELEASE</spring.version>
-        <jrouter.version>1.7.3</jrouter.version>
+        <spring.version>4.3.10.RELEASE</spring.version>
+        <jrouter.version>1.7.4</jrouter.version>
     </properties>
 </project>

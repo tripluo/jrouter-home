@@ -6,6 +6,7 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
+<%@page import="java.util.concurrent.ConcurrentSkipListMap"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -33,13 +34,13 @@
             out.write(af + "<br/>");
             out.write("DefaultInterceptorStack : " + af.getDefaultInterceptorStack() + "<br/>");
             out.write("DefaultResultType : " + af.getDefaultResultType() + "<br/>");
-            out.write("ObjectFactory : " + af.getObjectFactory()+ "<br/>");
-            out.write("MethodInvokerFactory : " + af.getMethodInvokerFactory()+ "<br/>");
-            out.write("ConverterFactory : " + af.getConverterFactory()+ "<br/>");
+            out.write("ObjectFactory : " + af.getObjectFactory() + "<br/>");
+            out.write("MethodInvokerFactory : " + af.getMethodInvokerFactory() + "<br/>");
+            out.write("ConverterFactory : " + af.getConverterFactory() + "<br/>");
 
             //InterceptorStacks
             out.write("<a name='InterceptorStacks'><h2>InterceptorStacks : </h2></a>");
-            Map<String, InterceptorStackProxy> interceptorStacks = (Map) af.getInterceptorStacks();
+            Map<String, InterceptorStackProxy> interceptorStacks = new ConcurrentSkipListMap(af.getInterceptorStacks());
             for (InterceptorStackProxy is : interceptorStacks.values()) {
                 out.write(is.getName() + " : " + is.getFieldName() + "<br/>");
                 List<InterceptorProxy> ips = is.getInterceptors();
@@ -53,7 +54,7 @@
 
             //Actions
             out.write("<a name='Actions'><h2>Actions : </h2></a>");
-            Map<String, ActionProxy> actions = (Map) af.getActions();
+            Map<String, ActionProxy> actions = new ConcurrentSkipListMap(af.getActions());
             for (Map.Entry<String, ActionProxy> ae : actions.entrySet()) {
 
                 String url = ae.getKey();
@@ -93,7 +94,7 @@
 
             //ResultTypes
             out.write("<a name='ResultTypes'><h2>ResultTypes : </h2></a>");
-            Map<String, ResultTypeProxy> rts = (Map) af.getResultTypes();
+            Map<String, ResultTypeProxy> rts = new ConcurrentSkipListMap(af.getResultTypes());
             for (ResultTypeProxy rt : rts.values()) {
                 out.write("ResultType : " + rt.getType() + " ---> " + rt.getMethod() + "<br/>");
                 out.write("- - - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - -<br/> ");
@@ -102,7 +103,7 @@
 
             //Result
             out.write("<a name='Results'><h2>Results : </h2></a>");
-            Map<String, ResultProxy> rs = (Map) af.getResults();
+            Map<String, ResultProxy> rs = new ConcurrentSkipListMap(af.getResults());
             for (ResultProxy r : rs.values()) {
                 out.write("Result : " + r.getResult().name() + " ---> " + r.getMethod() + "<br/>");
                 out.write("- - - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - -<br/> ");
@@ -111,7 +112,7 @@
 
             //Interceptors
             out.write("<a name='Interceptors'><h2>Interceptors : </h2></a>");
-            Map<String, InterceptorProxy> ips = (Map) af.getInterceptors();
+            Map<String, InterceptorProxy> ips = new ConcurrentSkipListMap(af.getInterceptors());
             for (InterceptorProxy ip : ips.values()) {
                 out.write("Interceptor : " + ip.getName() + " ---> " + ip.getMethod() + "<br/>");
                 out.write("- - - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - - - - - - - - - - - - - - - - - - - - - - - - -<br/> ");

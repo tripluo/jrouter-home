@@ -16,22 +16,22 @@ public class HomeAction {
 
     @Action(name = {"home", "index"})
     public String index(ServletActionInvocation invocation) {
-        return ResultUtil.renderFreemarker("/template/home.ftlh");
+        return ResultUtil.renderThymeleaf("/home");
     }
 
     @Action
     public String doc(ServletActionInvocation invocation) {
-        return ResultUtil.renderFreemarker("/template/doc.ftlh");
+        return ResultUtil.renderThymeleaf("/doc");
     }
 
     @Action(name = {"download", "downloads"})
     public String downloads(ServletActionInvocation invocation) {
-        return ResultUtil.renderFreemarker("/template/downloads.ftlh");
+        return ResultUtil.renderThymeleaf("/downloads");
     }
 
     @Action
     public String about(ServletActionInvocation invocation) {
-        return ResultUtil.renderFreemarker("/template/about.ftlh");
+        return ResultUtil.renderThymeleaf("/about");
     }
 
     @Action

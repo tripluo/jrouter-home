@@ -2,7 +2,7 @@
 <configuration>
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>/* [%p] %logger %line */ %date{yyyy-MM-dd HH:mm:ss} %n%m%n</pattern>
+            <pattern>|%date{yyyy-MM-dd HH:mm:ss}|%p|%thread|%logger %line%n%m%n</pattern>
         </encoder>
     </appender>
     <appender name="R" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -10,14 +10,14 @@
         <!--and http://logback.qos.ch/manual/appenders.html#TimeBasedRollingPolicy-->
         <!--for further documentation-->
         <encoder>
-            <pattern>/* [%p] %logger %line */ %date{yyyy-MM-dd HH:mm:ss} %n%m%n</pattern>
+            <pattern>|%date{yyyy-MM-dd HH:mm:ss}|%p|%thread|%logger %line%n%m%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>WARN</level>
+            <level>INFO</level>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover 区根目录 -->
-            <fileNamePattern>/jrouter_home_log.%d{yyyyMMdd}.log</fileNamePattern>
+            <fileNamePattern>/logfiles/jrouter_home.%d{yyyyMMdd}.log</fileNamePattern>
             <!-- keep 90 days' worth of history -->
             <maxHistory>90</maxHistory>
         </rollingPolicy>
@@ -35,7 +35,8 @@
         <appender-ref ref="R"/>
     </logger>
 
-    <root level="INFO">
+    <root level="${log.level:-INFO}">
         <appender-ref ref="stdout"/>
+        <appender-ref ref="R"/>
     </root>
 </configuration>

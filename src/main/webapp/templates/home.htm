@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>JRouter Home</title>
-        <meta name="keywords" content="JRouter, JRouter Home,Java开源,Java容器,架构设计" />
-        <meta name="description" content="jrouter是一个基于对象方法架构的开源轻量级Java容器。它专注于方法的映射、调用、拦截和结果处理，采用基于配置和注解的方式来抽取和收集程序中对象的方法（method）以用于HTTP控制器，Web服务，RPC，各种应用等。" />
+        <meta name="keywords" content="JRouter,JRouter Home,Java开源,Java容器,架构设计" />
+        <meta name="description" content="jrouter是一个围绕对象方法基于责任链（拦截器）模式架构的开源轻量级Java容器。它专注于方法的映射、调用、拦截和结果处理，采用基于配置和注解的方式来抽取和收集程序中对象的方法（method）以用于路由映射，HTTP控制器，RPC，各种应用等。" />
         <meta th:replace="~{/template_home :: header}" />
         <!--/*-->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -40,10 +40,9 @@
                 <div class="blog-header">
                     <h1 class="blog-title">JRouter</h1>
                     <p class="lead blog-description">
-                        一个基于对象方法架构的<a th:href="|${sharedVariables['jrouterHomeURL']}/|" href="https://github.com/innjj/jrouter/" target="_blank">开源轻量级Java容器</a>。
-                        专注于方法的映射、调用、拦截和结果处理，<br/>
-                        采用基于配置和注解的方式来抽取和收集程序中对象的方法（method）以用于HTTP控制器，<br/>
-                        Web服务，RPC，各种应用等。
+                        一个围绕对象方法基于责任链（拦截器）模式设计的<a th:href="|${sharedVariables['jrouterHomeURL']}/|" href="https://github.com/innjj/jrouter/" target="_blank">开源轻量级Java容器</a>。<br/>
+                        专注于方法的映射、调用、拦截和结果处理，采用基于配置和注解的方式来抽取和收集程序中对象的方法（method）以用于路由映射，
+                        HTTP控制器，RPC，各种应用等。
                     </p>
                 </div>
                 <div class="row">
@@ -51,11 +50,20 @@
                         <div class="blog-post">
                             <h2 class="blog-post-title">特点</h2>
                             <hr>
+
+                            <h3>理念</h3>
+                            <p class="lead">
+                                计算机本质为 input -> output，程序的主要基本要素为 变量/方法。<br/>
+                                简而言之，我们一直在重复做着 一件事：<br/>
+                                <mark>var function(var) 亦或 Result Method(Parameters[])。</mark><br/>
+                                因而，方法（Method）是关注的核心；围绕 Method调用展开流程。
+                            </p>
+
                             <h3>设计</h3>
                             <p>针对方法，提供基于注解(<a th:href="|${sharedVariables['jrouterSourceURL']}/java/jrouter/annotation/|" href="https://github.com/innjj/jrouter/tree/master/src/main/java/jrouter/annotation/" target="_blank">@Annotation</a>)的配置：</p>
                             <ul>
                                 <li>命名空间（Namespace）</li>
-                                <li>行为定义（Action）</li>
+                                <li>行为（方法）定义（Action）</li>
                                 <li>拦截器（Interceptor）</li>
                                 <li>拦截栈（InterceptorStack）</li>
                                 <li>结果对象（Result）</li>
@@ -71,7 +79,7 @@
                             <ul>
                                 <li>
                                     一个jar包（130+KB），基本无依赖（仅需 <a href="http://www.slf4j.org/download.html" target="_blank">slf4j</a>），兼容
-                                    <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank">jdk 1.6+</a>
+                                    <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank">jdk 1.7+</a>
                                     。
                                 </li>
                                 <li>
@@ -105,6 +113,9 @@
                             <ul>
                                 <li>
                                     <a th:href="|${sharedVariables['jrouter-servletHomeURL']}/|" href="https://github.com/innjj/jrouter-servlet/" target="_blank">HTTP servlet支持。</a>
+                                </li>
+                                <li>
+                                    <a th:href="|${sharedVariables['jrouter-rpcHomeURL']}/|" href="https://github.com/innjj/jrouter-rpc/" target="_blank">RPC 支持。</a>
                                 </li>
                             </ul>
 

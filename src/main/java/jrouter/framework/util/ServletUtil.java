@@ -32,8 +32,7 @@ public abstract class ServletUtil {
     /**
      * 分析并设置contentType与headers.
      */
-    private static void initResponse(HttpServletResponse response, final String contentType,
-            final String... headers) {
+    private static void initResponse(HttpServletResponse response, final String contentType, final String... headers) {
 
         //分析headers参数
         String encoding = DEFAULT_ENCODING;
@@ -69,8 +68,8 @@ public abstract class ServletUtil {
      *
      * @param headers 可变的header数组，目前接受的值为"encoding:"或"no-cache:",默认值分别为UTF-8和true.
      */
-    public static void render(HttpServletResponse response, final String contentType,
-            final String content, final String... headers) {
+    public static void render(HttpServletResponse response, final String contentType, final String content,
+            final String... headers) {
         //设置headers参数
         initResponse(response, contentType, headers);
         try {
@@ -86,8 +85,7 @@ public abstract class ServletUtil {
      *
      * @see #render(HttpServletResponse, String, String, String...)
      */
-    public static void renderText(HttpServletResponse response, final String text,
-            final String... headers) {
+    public static void renderText(HttpServletResponse response, final String text, final String... headers) {
         render(response, TEXT_TYPE, text, headers);
     }
 
@@ -96,8 +94,7 @@ public abstract class ServletUtil {
      *
      * @see #render(HttpServletResponse, String, String, String...)
      */
-    public static void renderHtml(HttpServletResponse response, final String html,
-            final String... headers) {
+    public static void renderHtml(HttpServletResponse response, final String html, final String... headers) {
         render(response, HTML_TYPE, html, headers);
     }
 
@@ -106,24 +103,22 @@ public abstract class ServletUtil {
      *
      * @see #render(HttpServletResponse, String, String, String...)
      */
-    public static void renderXml(HttpServletResponse response, final String xml,
-            final String... headers) {
+    public static void renderXml(HttpServletResponse response, final String xml, final String... headers) {
         render(response, XML_TYPE, xml, headers);
     }
 
     /**
      * 直接输出JSON格式的字符串.
      */
-    public static void renderJson(HttpServletResponse response, final String jsonString,
-            final String... headers) {
+    public static void renderJson(HttpServletResponse response, final String jsonString, final String... headers) {
         render(response, JSON_TYPE, jsonString, headers);
     }
 
     /**
      * 直接输出支持跨域Mashup的JSONP.
      */
-    public static void renderJsonp(HttpServletResponse response, final String callbackName,
-            final String jsonString, final String... headers) {
+    public static void renderJsonp(HttpServletResponse response, final String callbackName, final String jsonString,
+            final String... headers) {
         StringBuilder result = new StringBuilder().append(callbackName).append('(').append(jsonString).append(')');
         //渲染Content-Type为javascript的返回内容,输出结果为javascript语句, 如callback197("{content:'Hello World!!!'}")
         render(response, JS_TYPE, result.toString(), headers);
@@ -190,8 +185,7 @@ public abstract class ServletUtil {
      *
      * @param lastModified 内容的最后修改时间.
      */
-    public static boolean checkIfModifiedSince(HttpServletRequest request,
-            HttpServletResponse response,
+    public static boolean checkIfModifiedSince(HttpServletRequest request, HttpServletResponse response,
             long lastModified) {
         long ifModifiedSince = request.getDateHeader("If-Modified-Since");
         if ((ifModifiedSince != -1) && (lastModified < ifModifiedSince + 1000)) {
@@ -208,8 +202,7 @@ public abstract class ServletUtil {
      *
      * @param etag 内容的ETag.
      */
-    public static boolean checkIfNoneMatchEtag(HttpServletRequest request,
-            HttpServletResponse response, String etag) {
+    public static boolean checkIfNoneMatchEtag(HttpServletRequest request, HttpServletResponse response, String etag) {
         String headerValue = request.getHeader("If-None-Match");
         if (headerValue != null) {
             boolean conditionSatisfied = false;

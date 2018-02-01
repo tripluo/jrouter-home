@@ -38,21 +38,21 @@
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.21.0-GA</version>
+            <version>3.22.0-GA</version>
         </dependency>
 
         <!-- thymeleaf -->
         <dependency>
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf-spring4</artifactId>
-            <version>3.0.7.RELEASE</version>
+            <version>3.0.9.RELEASE</version>
         </dependency>
 
         <!-- freemarker -->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
-            <version>2.3.26-incubating</version>
+            <version>2.3.27-incubating</version>
         </dependency>
 
         <!-- springframework -->
@@ -84,14 +84,14 @@
         <!-- servlet/jsp -->
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>2.3.2-b02</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -100,11 +100,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.2</version>
+                <version>3.7.0</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                     <useIncrementalCompilation>false</useIncrementalCompilation>
                 </configuration>
             </plugin>
@@ -120,16 +120,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
             </plugin>
             <!-- jetty插件 JDK 1.7 -->
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.2.21.v20170120</version>
+                <version>9.2.24.v20180105</version>
                 <configuration>
                     <httpConnector>
-                        <port>9999</port>
+                        <port>${jetty.http.port}</port>
                     </httpConnector>
                     <webApp>
                         <contextPath>/</contextPath>
@@ -172,8 +172,9 @@
         </profile>
     </profiles>
     <properties>
+        <jrouter.version>1.7.5</jrouter.version>
+        <spring.version>4.3.14.RELEASE</spring.version>
+        <jetty.http.port>9999</jetty.http.port>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>4.3.10.RELEASE</spring.version>
-        <jrouter.version>1.7.4</jrouter.version>
     </properties>
 </project>

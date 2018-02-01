@@ -64,9 +64,75 @@
     </footer>
     <script type="text/javascript" th:src="|${base?:''}/js/jquery.js|" src="/js/jquery.js"></script>
     <script type="text/javascript" th:src="|${base?:''}/js/bootstrap.js|" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" th:src="|${base?:''}/js/js.cookie.js|" src="/js/js.cookie.js"></script>
     <script type="text/javascript">
         //<![CDATA[
+        var MT_Cookie;
         $(document).ready(function () {
+            //mouses tacker get/set from cookie
+            MT_Cookie = {
+                cookieKey: "mt",
+                set: function (x, y) {
+                    if ($.isNumeric(x) && $.isNumeric(y)) {
+                        var mts = MT_Cookie.get();
+                        //去重
+                        for (var i = 0; i < mts.length; i++) {
+                            var p = mts[i];
+                            if (p[0] === x && p[1] === y) {
+                                mts.splice(i, 1);
+                            }
+                        }
+                        //添加至开头
+                        mts.unshift([x, y]);
+                        while (mts.length > 128) {
+                            //删末尾
+                            mts.pop();
+                        }
+                        //console.info(x + "," + y);
+                        Cookies.set(MT_Cookie.cookieKey, mts);
+                    }
+                },
+                get: function () {
+                    var mts = Cookies.getJSON(MT_Cookie.cookieKey) || [];
+                    if (!$.isArray(mts)) {
+                        mts = [];
+                    }
+                    if (mts.length === 0) {
+                        //清理以避免读错cookie
+                        MT_Cookie.reset();
+                        mts = [];
+                    }
+                    return mts;
+                },
+                reset: function () {
+                    Cookies.remove(MT_Cookie.cookieKey);
+                    Cookies.remove(MT_Cookie.cookieKey, {path: ''});
+                }
+            };
+            var MT = {
+                curPoint: [],
+                checkPoint: [],
+                _cumulative: 0,
+                _init_: function () {
+                    $(document).mousemove(function (e) {
+                        //console.info(e);
+                        MT.curPoint = [e.screenX, e.screenY];
+                        MT._cumulative = 0;
+                    });
+                    setInterval(function () {
+                        //mouse hover
+                        if (MT.curPoint[0] === MT.checkPoint[0] && MT.curPoint[1] === MT.checkPoint[1]) {
+                            if (MT._cumulative++ >= 7) {
+//                                MT.lastHover = MT.curHover;
+                                MT_Cookie.set(MT.curPoint[0], MT.curPoint[1]);
+                            }
+                        } else {
+                            MT.checkPoint = MT.curPoint;
+                            MT._cumulative = 0;
+                        }
+                    }, 100);
+                }()
+            };
         });
         //]]>
     </script>

@@ -64,8 +64,8 @@ public class FreemarkerResult implements ServletContextAware {
      *
      * @see Template#process(Object, Writer)
      */
-    public void result(String templateLocation, Object dataModel, ServletActionInvocation invocation)
-            throws IOException, TemplateException {
+    public void result(String templateLocation, Object dataModel, ServletActionInvocation invocation) throws IOException,
+            TemplateException {
         Template template = configuration.getTemplate(templateLocation);
         Writer writer = invocation.getResponse().getWriter();
         try {
@@ -104,8 +104,8 @@ public class FreemarkerResult implements ServletContextAware {
         return model;
     }
 
-    protected void postTemplateProcess(HttpServletRequest request, HttpServletResponse response,
-            Template template, TemplateModel data) {
+    protected void postTemplateProcess(HttpServletRequest request, HttpServletResponse response, Template template,
+            TemplateModel data) {
     }
 
 }

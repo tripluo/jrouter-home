@@ -1,6 +1,5 @@
 package jrouter.framework.result.thymeleaf;
 
-import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
@@ -46,7 +45,7 @@ public class ThymeleafResult implements ApplicationContextAware, InitializingBea
     private ApplicationContext applicationContext;
 
     @ResultType(type = TYPE)
-    public void result(ServletActionInvocation invocation) throws IOException, TemplateException {
+    public void result(ServletActionInvocation invocation) throws IOException {
         if (invocation.getResult() != null) {
             String location = invocation.getResult().location();
             if (location.charAt(0) != '/') {
@@ -63,7 +62,7 @@ public class ThymeleafResult implements ApplicationContextAware, InitializingBea
     protected IContext createContext(ServletActionInvocation invocation) {
         ServletContext servletContext = invocation.getServletContext();
         HttpServletRequest request = invocation.getRequest();
-        final Map<String, Object> mergedModel = new HashMap<String, Object>(invocation.getContextMap());
+        final Map<String, Object> mergedModel = new HashMap<>(invocation.getContextMap());
         if (staticVariables != null) {
             mergedModel.putAll(staticVariables);
         }

@@ -22,8 +22,8 @@ public class FreemarkerScopesHashModel extends SimpleHash {
 
     private final Map<String, Object> contextMap;
 
-    public FreemarkerScopesHashModel(ObjectWrapper objectWrapper, ServletContext context,
-            HttpServletRequest request, Map<String, Object> contextMap) {
+    public FreemarkerScopesHashModel(ObjectWrapper objectWrapper, ServletContext context, HttpServletRequest request,
+            Map<String, Object> contextMap) {
         super(objectWrapper);
         this.servletContext = context;
         this.request = request;

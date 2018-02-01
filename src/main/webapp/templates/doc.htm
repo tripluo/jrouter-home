@@ -366,8 +366,8 @@
                     <div class="hidden-xs col-sm-3 blog-sidebar">
                         <div data-spy="affix" data-offset-top="50" data-offset-bottom="200">
                             <div class="sidebar-module sidebar-module-inset">
-                                <h4>Archives</h4>
-                                <ol id="archives" class="list-unstyled">
+                                <h4>About</h4>
+                                <ol id="about" class="list-unstyled">
                                 </ol>
                                 <a href="#">Back to top</a>
                             </div>
@@ -393,8 +393,8 @@
                 SyntaxHighlighter.defaults['auto-links'] = false;
                 SyntaxHighlighter.all();
 
-                //build archives
-                var content = $('#archives');
+                //build about
+                var content = $('#about');
                 $.each($("a[name]"), function () {
                     var name = $(this).attr('name');
                     content.append($("<li></li>").append($("<a></a>", {

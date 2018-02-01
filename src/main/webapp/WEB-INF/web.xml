@@ -65,15 +65,15 @@
     <!-- error pages -->
     <error-page>
         <error-code>404</error-code>
-        <location>/40x.jsp</location>
+        <location>/40x.html</location>
     </error-page>
     <error-page>
         <error-code>403</error-code>
-        <location>/40x.jsp</location>
+        <location>/40x.html</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/50x.jsp</location>
+        <location>/50x.html</location>
     </error-page>
     <!-- 文件限制访问 -->
     <security-constraint>

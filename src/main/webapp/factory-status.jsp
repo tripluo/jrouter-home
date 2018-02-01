@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" session="false"%>
 <%@page import="jrouter.ActionFactory,jrouter.ActionProxy,jrouter.annotation.Interceptor"%>
 <%@page import="jrouter.annotation.Result"%>
 <%@page import="jrouter.impl.*"%>

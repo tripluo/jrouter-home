@@ -270,6 +270,7 @@
 .syntaxhighlighter.printing .break, .syntaxhighlighter.printing .break a {
     color: black !important;
 }
+
 /** resolve conflict with bootstrap */
 .syntaxhighlighter .container:before, .syntaxhighlighter .container:after {
     display: none !important;

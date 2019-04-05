@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>JRouter Documentation</title>
+    <meta content="JRouter Documentation 文档" name="keywords"/>
+    <meta content="JRouter Documentation 文档" name="description"/>
+    <link href="./css/sh309/shCore.css" rel="stylesheet" th:href="|${base?:''}/css/sh309/shCore.css|" type="text/css"/>
+    <link href="./css/sh309/shThemeDefault.css" rel="stylesheet" th:href="|${base?:''}/css/sh309/shThemeDefault.css|"
+          type="text/css"/>
+    <meta th:replace="~{/template_home :: header}"/>
+    <!--/*-->
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <link href="../../favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/blog.css" rel="stylesheet"/>
+    <link href="../../css/sh309/shCore.css" rel="stylesheet"/>
+    <link href="../../css/sh309/shThemeDefault.css" rel="stylesheet"/>
+    <!--*/-->
+</head>
+<body>
+<div th:replace="~{/template_home :: body('doc', '' ,  ~{::div#content})}">
+    <div id="content">
+        <div class="row">
+            <div class="blog-header">
+            </div>
+            <div class="col-sm-9 blog-main">
+                <div class="blog-post">
+                    <h2>Documentation 文档</h2>
+                    <hr/>
+                    <a name="关于路径映射"></a>
+                    <h3>
+                        关于路径映射
+                        (
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/annotation/Action.java|">@Action</a>
+                        /
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/annotation/Namespace.java|">@Namespace</a>
+                        )
+                    </h3>
+                    <p>
+                        对于方法调用/映射，最常用的莫过于HTTP请求处理。
+                        比如一个简单的登录方法，返回成功/失败。
+                    </p>
+                    <pre>
+                                boolean login(...) {
+                                ......
+                            </pre>
+                    <p>
+                        我们希望它能映射到/login或是别的URL路径。
+                        <br/>
+                        于是，添加
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/annotation/Action.java|">@Action</a>
+                    </p>
+                    <pre>
+                                @Action(name = "/login")
+                                boolean login(...) {
+                                ......
+                            </pre>
+                    <p>
+                        不设置name属性，默认提供方法的名称。
+                    </p>
+                    <pre>
+                                @Action
+                                boolean login(...) {
+                                ......
+                            </pre>
+                    <p>
+                        上面也等同于/login路径。
+                    </p>
+                    <p class="bg-info">
+                        注意，所有路径都是绝对路径。login会最终补全/，转换为/login。
+                    </p>
+                    <p>
+                        设置同一类下多个方法路经
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/annotation/Namespace.java|">@Namespace</a>
+                    </p>
+                    <pre>
+                                @Namespace(name = "/user", autoIncluded = true)
+                                public class UserAction {
+
+                                    public boolean login(...) {
+                                    ......
+
+                                    public Object getUser(...) {
+                                    ......
+                                }
+                            </pre>
+                    <p>
+                        上面等同于/user/login、/user/getUser 2个路径。
+                        <br/>
+                        并且，如果设置@Aciton，其优先级大于@Namespace
+                    </p>
+                    <pre>
+                                @Namespace(name = "/user", autoIncluded = true)
+                                public class UserAction {
+
+                                    @Action(name = "/login")
+                                    public boolean login(...) {
+                                    ......
+
+                                    public Object getUser(...) {
+                                    ......
+
+                                }
+                            </pre>
+                    <p>
+                        上面等同于/login、/user/getUser 2个路径。@Namespace的autoIncluded为true是会检测同一类中public/protected的方法。
+                    </p>
+                    <p>
+                        当然，可以在方法上设置
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/annotation/Ignore.java|">@Ignore</a>
+                        忽略映射关系。
+                    </p>
+                    <hr/>
+                    <a name="关于拦截栈"></a>
+                    <h3>
+                        关于拦截栈 / 拦截器
+                        (
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/annotation/InterceptorStack.java|">@InterceptorStack</a>
+                        /
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/annotation/Interceptor.java|">@Interceptor</a>
+                        )
+                    </h3>
+                    <p>
+                        拦截器的作用就是在方法前后左右执行另一些方法。<br/>
+                        这里，方法是指@Action映射的方法，另一些方法指拦截器里的方法。
+                    </p>
+                    <p>
+                        在方法上设置
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/annotation/Interceptor.java|">@Interceptor(name
+                            = "...")</a>
+                        表征其是一个拦截器。
+                    </p>
+                    <pre>
+                                @Interceptor(name = "timer")
+                                public static Object timer(...) {
+                                ......
+
+                                @Interceptor(name = "logging")
+                                public static Object logging(...) {
+                                ......
+                            </pre>
+                    <p>
+                        上面是一个
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/interceptor/SampleInterceptor.java|">SampleInterceptor的样列</a>
+                        。这里定义了2个拦截器；其中名为timer拦截器的timer(...)方法记录了方法执行所需的时间，而logging拦截器对应的logging(...)则分别打印执行前后的路径和时间。
+                    </p>
+                    <p class="bg-info">
+                        注意，拦截器方法中的<code>invocation.invoke()</code>调用不可少，表征拦截器依序调用。
+                    </p>
+                    <p>
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/annotation/InterceptorStack.java|">@InterceptorStack</a>
+                        定义多个拦截器组成的拦截栈。拦截栈实质就是一个拦截器数组。这里用注解的形式，更多是为了设置于一个<code>String</code>上方便读取和解析。
+                        见
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/interceptor/DefaultInterceptorStack.java|">示例DefaultInterceptorStack</a>
+                        。
+                    </p>
+                    <a name="拦截器配置/拦截器配置"></a>
+                    <h3>
+                        拦截栈 / 拦截器配置
+                    </h3>
+                    <p>
+                        首先，<a
+                            target="_blank"
+                            th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/impl/PathActionFactory.java|">容器</a>会提供一个默认全局拦截栈<code>defaultInterceptorStack</code>属性，
+                        也可能为<code>null</code>。
+                    </p>
+                    <p>
+                        拦截栈 / 拦截器可以配置于类和方法上。
+                    </p>
+                    <pre>
+                                @Namespace(interceptors = {"timer", "logging"})
+                                public class UserAction {
+
+                                    @Action(interceptorStack = "default", interceptors = {"timer"})
+                                    public boolean login(...) {
+                                    ......
+
+                                    @Action
+                                    public Object getUser(...) {
+                                    ......
+
+                                    @Action(interceptorStack = "empty")
+                                    public Object getUser2(...) {
+                                    ......
+
+                                    @Action(interceptors = {"logging"})
+                                    public Object getUser3(...) {
+                                    ......
+                                }
+                            </pre>
+                    <p>
+                        如上，最终
+                    </p>
+                    <ul>
+                        <li>"/login"的拦截器集合 = { "default"[...] + "timer" }</li>
+                        <li>"/getUser"的拦截器集合 = { "timer" + "logging" }</li>
+                        <li>"/getUser2"的拦截器集合 = { "empty"[...] }</li>
+                        <li>"/getUser3"的拦截器集合 = { "logging" }</li>
+                    </ul>
+                    <p>
+                        默认容器的实现：
+                    </p>
+                    <ul>
+                        <li>
+                            Namespace的拦截器集合 = 存在Namespace指定的拦截栈 ? 指定拦截栈的拦截器集合 + 指定的拦截器集合 : 指定的拦截器集合。
+                        </li>
+                        <li>
+                            Action指定的拦截器集合 = 存在Action指定的拦截栈 ? 指定拦截栈的拦截器集合 + 指定的拦截器集合 : 指定的拦截器集合。
+                        </li>
+                        <li>
+                            Action最终的拦截器集合 = Action指定拦截器集合 > 命名空间拦截器集合 > 全局默认拦截器集合。
+                        </li>
+                    </ul>
+                    <p class="bg-info">
+                        注意，拦截器集合是一个有序的可重复的列表。内部实现为<code>ArrayList</code>。
+                    </p>
+                    <hr/>
+                    <a name="关于结果对象/结果类型"></a>
+                    <h3>
+                        关于结果对象 / 结果类型
+                        (
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/annotation/Result.java|">@Result</a>
+                        /
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/annotation/ResultType.java|">@ResultType</a>
+                        )
+                    </h3>
+                    <p>
+                        方法调用结束会有返回值，结果对象就是指的<code>return</code>值。<br/>
+                        结果对象中的<code>type</code>属性对应相应的结果类型，表示同一类类型的结果集。
+                    </p>
+                    <p>
+                        在方法上设置
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/annotation/Result.java|">@Result(name
+                            = "...")</a>
+                        表征其是一个结果对象。
+                        <br/>
+                        在方法上设置
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/annotation/ResultType.java|">@ResultType(type
+                            = "...")</a>
+                        表征其是一类结果类型。
+                    </p>
+                    <pre>
+                                @ResultType(type = "empty")
+                                public static void result(...) {
+                                ......
+
+                                @ResultType(type = "forward")
+                                public static Object actionForward(...) {
+                                ......
+
+                                @Result(name = "resultNotFound")
+                                public static Object resultNotFound(...) {
+                                ......
+                            </pre>
+                    <p>
+                        上面是一个
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/result/DefaultResult.java|">DefaultResult的样列</a>
+                        。这里定义了2个结果类型和1个结果对象；其中名为empty的类型不对方法的执行结果做任何处理，forward类型于方法执行之后进行转发，
+                        resultNotFound则相当于全局处理返回值为"resultNotFound"<code>String</code>类型的方法。
+                    </p>
+                    <p class="bg-info">
+                        当Result单独定义于方法上时，表示某种特定<code>String</code>类型全局的结果对象。
+                        当Result作为全局结果对象时，type值为空时直接调用后结束；type值不为空调用后再调用相应的ResultType。
+                    </p>
+                    <a name="结果对象配置"></a>
+                    <h3>
+                        结果对象配置
+                    </h3>
+                    <p>
+                        首先，<a
+                            target="_blank"
+                            th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/impl/PathActionFactory.java|">容器</a>会提供一个默认全局结果类型<code>defaultResultType</code>属性，
+                        也可能为<code>null</code>。
+                    </p>
+                    <p>
+                        结果对象<a
+                            target="_blank"
+                            th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/annotation/Result.java|">@Result</a>
+                        可以配置于方法上，属于<a
+                            target="_blank"
+                            th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/annotation/Action.java|">@Action</a>的一部分。
+                    </p>
+                    <pre>
+                                @Action(results = {
+                                    @Result(name = "test", type = "forward", location = "/test/simple2"),
+                                    @Result(name = "*")
+                                })
+                                public String autoRender(...) {
+                                ......
+                                &nbsp;
+                            </pre>
+                    <p>
+                        上面是一个在@Action中配置@Result的
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterHomeURL']}/tree/master/src/test/java/net/jrouter/SimpleAction.java|">SimpleAction的样列</a>。
+                        定义了autoRender(...)方法返回结果的处理方式，返回"test"值会forward值至路径/test/simple2的方法，其它<code>String</code>值会调用一个通配
+                        * 对象类型。
+                    </p>
+                    <p>
+                        简化，
+                    </p>
+                    <p>
+                        过多的@Result配置显得繁琐不便。
+                        容器提供了便捷的默认<code>"type : location"</code>表征结果对象的类型和路径。
+                        下面的等同于上面。
+                    </p>
+                    <pre>
+                                @Action
+                                public String autoRender(...) {
+                                    if (...) {
+                                    ......
+                                        return "forward : /test/simple2";
+                                    }
+                                    ......
+                                    return "*";
+                                }
+                            </pre>
+                    <p class="bg-info">
+                        容器默认处理了<code>String</code>返回对象，匹配包括指定@Result、"type : location"值、全局Result等。
+                        如果以上都无匹配，提供了invokeUndefinedResult(...)方法做继承自定义处理（默认不处理直接返回结果字符串）。
+                        <br/>
+                        对于<code>非String</code>返回对象，容器提供了invokeObjectResult(...)方法做继承自定义处理（默认不处理直接返回对象）。
+                    </p>
+                    <hr/>
+                    <a name="关于容器"></a>
+                    <h3>关于容器</h3>
+                    <p>
+                        上面多次提及到的容器，实际上即指实现<a
+                            target="_blank"
+                            th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/ActionFactory.java|">ActionFactory接口</a>
+                        的<a target="_blank"
+                            th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/impl/PathActionFactory.java|">默认容器PathActionFactory</a>。
+                        PathActionFactory可被继承，其也提供了诸多<code>protected</code>方法方便复写做自定义的数据处理。
+                    </p>
+                    <p>
+                        容器初始化属性配置参见<a target="_blank"
+                                      th:href="|${sharedVariables['jrouterSourceURL']}/resources/jrouter.properties|">jrouter.properties</a>。
+                    </p>
+                    <p>
+                        容器自身配置参见
+                        <a target="_blank" th:href="|${sharedVariables['jrouterSourceURL']}/resources/jrouter.xml|">jrouter.xml</a>。
+                        配置约束参见
+                        <a target="_blank" th:href="|${sharedVariables['jrouterSourceURL']}/resources/jrouter-1.6.xsd|">jrouter-1.6.xsd</a>。
+                    </p>
+                    <p>
+                        容器默认的配置属性参见
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/resources/jrouter.properties|">jrouter.properties</a>。
+                        某些配置项跟具体的版本相关。
+                    </p>
+                    <p>
+                        与springframework的集成。参见
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/resources/jrouter-spring.xml|">jrouter-spring.xml</a>。
+                    </p>
+                    <hr/>
+                    <a name="关于参数"></a>
+                    <h3>关于参数</h3>
+                    <p>
+                        上述所有例子的参数都是以<code>(...)</code>的形式略过。但实践中，这些参数可以由用户自定义或外界（其它容器）提供。
+                    </p>
+                    <p>
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/ActionFactory.java|">ActionFactory接口</a>
+                        指明了方法调用的入口<code>invokeAction(String key, Object... params)</code>key是Action的调用路径，参数params是无约束的一个数组。
+                    </p>
+                    <p>
+                        容器默认提供了<a
+                            target="_blank"
+                            th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/impl/MultiParameterConverterFactory.java|">MultiParameterConverterFactory</a>
+                        参数转换器，方便做参数类型自动判断和注入。
+                    </p>
+                    <p>
+                        容器的运行时上下文对象
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/impl/PathActionInvocation.java|">PathActionInvocation</a>
+                        默认将自身作为参数注入至调用方法的参数中，所以测试用例方法（包括Action、拦截器、结果对象、结果类型）中的
+                        <a target="_blank"
+                           th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/ActionInvocation.java|">ActionInvocation</a>
+                        参数由此而来。
+                    </p>
+                    <p>
+                        <a target="_blank" th:href="|${sharedVariables['jrouter-servletHomeURL']}/|">HTTP
+                            servlet项目jrouter-servlet</a>
+                        中提供了支持HTTP参数注入<a
+                            target="_blank"
+                            th:href="|${sharedVariables['jrouter-servletSourceURL']}/java/net/jrouter/servlet/ServletActionFactory.java|">ServletActionFactory </a>
+                        。
+                    </p>
+                </div><!-- /.blog-post -->
+            </div><!-- /.blog-main -->
+            <div class="hidden-xs col-sm-3 blog-sidebar">
+                <div data-offset-bottom="200" data-offset-top="50" data-spy="affix">
+                    <div class="sidebar-module sidebar-module-inset">
+                        <h4>About</h4>
+                        <ol class="list-unstyled" id="about">
+                        </ol>
+                        <a href="#">Back to top</a>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.row -->
+    </div>
+</div>
+<footer th:replace="~{/template_home :: footer(false)}">
+    <script src="../../js/jquery.js" type="text/javascript"></script>
+    <script src="../../js/bootstrap.js" type="text/javascript"></script>
+    <script src="../../js/xregexp.js" type="text/javascript"></script>
+    <script src="../../js/sh309/shCore.js" type="text/javascript"></script>
+    <script src="../../js/sh309/shBrushJava.js" type="text/javascript"></script>
+</footer>
+<script src="./js/xregexp.js" th:src="|${base?:''}/js/xregexp.js|" type="text/javascript"></script>
+<script src="./js/sh309/shCore.js" th:src="|${base?:''}/js/sh309/shCore.js|" type="text/javascript"></script>
+<script src="./js/sh309/shBrushJava.js" th:src="|${base?:''}/js/sh309/shBrushJava.js|" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("pre").addClass('brush: java');
+        SyntaxHighlighter.defaults['toolbar'] = false;
+        SyntaxHighlighter.defaults['auto-links'] = false;
+        SyntaxHighlighter.all();
+
+        //build about
+        var content = $('#about');
+        $.each($("a[name]"), function () {
+            var name = $(this).attr('name');
+            content.append($("<li></li>").append($("<a></a>", {
+                href: "#" + name,
+                title: name,
+                text: name
+            })));
+        });
+    });
+</script>
+</body>
+</html>

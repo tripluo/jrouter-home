@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+    <description>Springframework配置文件</description>
+
+    <!-- JRouter ActionFactory -->
+    <bean id="actionFactory" class="jrouter.servlet.spring.ObjectHandlerActionFactoryBean">
+        <!--<property name="actionFactoryClass" value="jrouter.servlet.ObjectHandlerActionFactory" />-->
+        <!--<property name="defaultObjectResultType" value="${actionFactory.defaultObjectResultType}" />-->
+        <property name="actionFactoryProperties">
+            <value>
+                extension = .
+                defaultResultType = fastjson
+                defaultInterceptorStack = default
+            </value>
+        </property>
+        <property name="interceptors">
+            <list>
+                <value>net.jrouter.home.interceptor.TimerInterceptor</value>
+                <value>net.jrouter.home.interceptor.ExceptionInterceptor</value>
+            </list>
+        </property>
+        <property name="interceptorStacks">
+            <list>
+                <value>net.jrouter.home.interceptor.DefaultInterceptorStack</value>
+            </list>
+        </property>
+        <property name="resultTypes">
+            <list>
+                <value>jrouter.servlet.result.ServletResult</value>
+                <!--<ref bean="freemarkerResult" />-->
+                <ref bean="thymeleafResult" />
+            </list>
+        </property>
+        <!-- scan classes properties -->
+        <property name="componentClassScanProperties">
+            <list>
+                <value>
+                    package = net.jrouter
+                    includeExpression = net.jrouter.home.**.*Action
+                </value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Common Shared Variables -->
+    <!--    <util:properties id="sharedVariables" location="classpath:jrouter-home.properties" />
+<context:property-placeholder file-encoding="UTF-8"
+    ignore-resource-not-found="false"
+    ignore-unresolvable="true"
+    location="classpath:jrouter-home.properties" />-->
+
+    <!-- thymeleaf -->
+    <!--<import resource="thymeleaf-spring.xml" />-->
+    <!-- freemarker -->
+    <!--<import resource="freemarker-spring.xml" />-->
+</beans>

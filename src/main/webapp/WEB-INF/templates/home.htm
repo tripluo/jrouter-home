@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>JRouter Home</title>
+    <meta content="JRouter,JRouter Home,Java开源,Java容器,架构设计" name="keywords"/>
+    <meta content="jrouter是一个围绕对象方法基于责任链（拦截器）模式架构的开源轻量级Java容器。它专注于方法的映射、调用、拦截和结果处理，采用基于配置和注解的方式来抽取和收集程序中对象的方法（method）以用于路由映射，HTTP控制器，RPC，各种应用等。"
+          name="description"/>
+    <meta th:replace="~{/template_home :: header}"/>
+    <!--/*-->
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <link href="../../favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/blog.css" rel="stylesheet"/>
+    <!--*/-->
+</head>
+<body>
+<!--/*-->
+<div class="blog-masthead">
+    <div class="container">
+        <nav class="blog-nav">
+            <a class="blog-nav-item active" href="#">
+                Home 首页
+            </a>
+            <a class="blog-nav-item " href="doc.htm">
+                Documentation 文档
+            </a>
+            <a class="blog-nav-item " href="downloads.htm">
+                Downloads 下载
+            </a>
+            <a class="blog-nav-item " href="about.htm">
+                About 关于
+            </a>
+        </nav>
+    </div>
+</div>
+<!--*/-->
+<div class="container" th:replace="~{/template_home :: body('home', '' ,  ~{::div#content})}">
+    <div id="content">
+        <div class="blog-header">
+            <h1 class="blog-title">JRouter</h1>
+            <p class="lead blog-description">
+                一个围绕对象方法基于责任链（拦截器）模式设计的<a href="https://github.com/tripluo/jrouter/"
+                                          target="_blank"
+                                          th:href="|${sharedVariables['jrouterHomeURL']}/|">开源轻量级Java容器</a>。<br/>
+                专注于方法的映射、调用、拦截和结果处理，采用基于配置和注解的方式来抽取和收集程序中对象的方法（method）以用于路由映射，
+                HTTP控制器，RPC，各种应用等。
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-sm-10 blog-main">
+                <div class="blog-post">
+                    <h2 class="blog-post-title">特点</h2>
+                    <hr>
+
+                    <h3>理念</h3>
+                    <p class="lead">
+                        计算机本质为 input -> output，程序的主要基本要素为 变量/方法。<br/>
+                        简而言之，我们一直在重复做着 一件事：<br/>
+                        <mark>var function(var) 亦或 Result Method(Parameters[])。</mark>
+                        <br/>
+                        因而，方法（Method）是关注的核心；围绕 Method调用展开流程。
+                    </p>
+
+                    <h3>设计</h3>
+                    <p>针对方法，提供基于注解(<a
+                            href="https://github.com/tripluo/jrouter/tree/master/src/main/java/net/jrouter/annotation/"
+                            target="_blank"
+                            th:href="|${sharedVariables['jrouterSourceURL']}/java/net/jrouter/annotation/|">@Annotation</a>)的配置：
+                    </p>
+                    <ul>
+                        <li>命名空间（Namespace）</li>
+                        <li>行为（方法）定义（Action）</li>
+                        <li>拦截器（Interceptor）</li>
+                        <li>拦截栈（InterceptorStack）</li>
+                        <li>结果对象（Result）</li>
+                        <li>结果类型（ResultType）</li>
+                    </ul>
+
+                    <h3>方法调用流程</h3>
+                    <p>
+                        <img alt="JRouter方法调用流程"
+                             src="https://github.com/tripluo/jrouter/raw/master/outline.png"
+                             th:src="|${sharedVariables['jrouterHomeURL']}/raw/master/outline.png|"
+                             title="JRouter方法调用流程"/>
+                    </p>
+
+                    <h3>简单易用</h3>
+                    <ul>
+                        <li>
+                            一个jar包（140+KB），基本无依赖（仅需 <a href="http://www.slf4j.org/download.html"
+                                                       target="_blank">slf4j</a>），兼容
+                            <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
+                               target="_blank">jdk 1.7+</a>
+                            。
+                        </li>
+                        <li>
+                            提供快捷地与
+                            <a href="https://github.com/tripluo/jrouter#springframework-integration"
+                               target="_blank"
+                               th:href="|${sharedVariables['jrouterHomeURL']}#springframework-integration|">
+                                springframework集成。
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" th:href="|${sharedVariables['jrouterHomeURL']}/|">完全开源</a>，
+                            <a target="_blank"
+                               th:href="|${sharedVariables['jrouterHomeURL']}/tree/master/src/main/resources/LICENSE.txt|">Apache
+                                License, Version 2.0</a>，
+                            <a href="https://github.com/tripluo/jrouter#maven"
+                               target="_blank" th:href="|${sharedVariables['jrouterHomeURL']}#maven|">支持Maven。</a>
+                        </li>
+                    </ul>
+
+                    <h3>性能 / 安全</h3>
+                    <ul>
+                        <li>快速地方法调用，方法缓存。</li>
+                        <li>
+                            默认提供基于<a href="http://jboss-javassist.github.io/javassist/" target="_blank">javassist</a>的字节码增强。
+                        </li>
+                        <li>
+                            类似大多数框架，容器初始化封装数据后趋于一个稳定状态，对外接口只提供不变数据，方法调用接口不影响内部数据，因而是线程安全的。
+                        </li>
+                        <li>
+                            努力完善的<a
+                                target="_blank"
+                                th:href="|${sharedVariables['jrouterHomeURL']}/tree/master/src/test/java/net/jrouter/|">各种测试。</a>
+                        </li>
+                    </ul>
+
+                    <h3>支持</h3>
+                    <ul>
+                        <li>
+                            <a href="https://github.com/tripluo/jrouter-servlet/"
+                               target="_blank" th:href="|${sharedVariables['jrouter-servletHomeURL']}/|">HTTP
+                                servlet支持。</a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/tripluo/jrouter-rpc/"
+                               target="_blank" th:href="|${sharedVariables['jrouter-rpcHomeURL']}/|">RPC 支持。</a>
+                        </li>
+                    </ul>
+
+                </div><!-- /.blog-post -->
+
+            </div><!-- /.blog-main -->
+
+        </div><!-- /.row -->
+    </div>
+</div>
+<footer th:replace="~{/template_home :: footer(false)}">
+    <footer class="blog-footer">
+        <p>&copy; 2019
+            <a th:href="${url.toURL('/index')}">JRouter.NET</a>
+            <small>
+                [
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">
+                    沪ICP备15053025号
+                </a>
+                ]
+            </small>
+        </p>
+        <p>
+            <a href="#">Back to top</a>
+            [(${_executionTime?:0})] ms
+        </p>
+    </footer>
+    <script src="/js/jquery.js" th:src="|${base?:''}/js/jquery.js|" type="text/javascript"></script>
+    <script src="/js/bootstrap.js" th:src="|${base?:''}/js/bootstrap.js|" type="text/javascript"></script>
+    <script type="text/javascript">
+        //<![CDATA[
+        $(document).ready(function () {
+        });
+        //]]>
+    </script>
+</footer>
+</body>
+</html>

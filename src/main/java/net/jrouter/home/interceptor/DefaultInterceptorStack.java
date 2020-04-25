@@ -9,9 +9,9 @@ public class DefaultInterceptorStack {
 
     /** 时间记录 -> 异常处理 */
     @InterceptorStack(interceptors = {
-            TimerInterceptor.TIMER,
-            ExceptionInterceptor.EXCEPTION
-    })
+            @InterceptorStack.Interceptor(TimerInterceptor.TIMER),
+            @InterceptorStack.Interceptor(ExceptionInterceptor.EXCEPTION)
+    }, include = "/**/**")
     public static final String DEFAULT = "default";
 
     /** 空拦截栈 */

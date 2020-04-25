@@ -39,11 +39,9 @@ public class HomeApi {
     }
 
     @Action
-    public void showFactoryStatus(ServletActionInvocation invocation) throws MalformedURLException,
-            IOException {
+    public void showFactoryStatus(ServletActionInvocation invocation) throws IOException {
         HttpServletResponse response = invocation.getResponse();
         ServletUtil.setDownloadableHeader(response, "factory-status.jsp");
         StreamUtils.copy(invocation.getServletContext().getResourceAsStream("/factory-status.jsp"), response.getOutputStream());
     }
-
 }

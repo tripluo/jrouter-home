@@ -25,13 +25,6 @@ public @interface ServiceApi {
     String interceptorStack() default "";
 
     /**
-     * 指定的拦截器集合的名称集合，指定空集合无效。
-     *
-     * @return 指定拦截器集合的名称集合。
-     */
-    String[] interceptors() default {};
-
-    /**
      * 是否自动加载定义类所有public/protected方法，默认不自动加载。
      *
      * @return 是否自动加载所定义类的public/protected方法，默认不自动加载。

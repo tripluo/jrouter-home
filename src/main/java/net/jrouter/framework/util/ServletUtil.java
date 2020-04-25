@@ -24,9 +24,6 @@ public abstract class ServletUtil {
 
     public static final String TEXT_TYPE = "text/plain";
 
-    ////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
     public static final long ONE_DAY_SECONDS = 60 * 60 * 24;
 
     //-- header 常量定义 --//
@@ -39,10 +36,8 @@ public abstract class ServletUtil {
      * 分析并设置contentType与headers.
      */
     private static void initResponse(HttpServletResponse response, final String contentType, final String... headers) {
-
         //分析headers参数
         String encoding = DEFAULT_ENCODING;
-
         for (String header : headers) {
             String headerName = null;
             String headerValue = null;
@@ -60,7 +55,6 @@ public abstract class ServletUtil {
         //设置headers参数
         String fullContentType = contentType + ";charset=" + encoding;
         response.setContentType(fullContentType);
-
     }
 
     /**
@@ -73,8 +67,7 @@ public abstract class ServletUtil {
      *
      * @param headers 可变的header数组，目前接受的值为"encoding:"或"no-cache:",默认值分别为UTF-8和true.
      */
-    public static void render(HttpServletResponse response, final String contentType, final String content,
-                              final String... headers) {
+    public static void render(HttpServletResponse response, final String contentType, final String content, final String... headers) {
         //设置headers参数
         initResponse(response, contentType, headers);
         try {
@@ -137,8 +130,8 @@ public abstract class ServletUtil {
     public static void setDownloadableHeader(HttpServletResponse response, String fileName) {
         try {
             // 中文文件名支持
-            String encodedfileName = new String(fileName.getBytes(), "ISO8859-1");
-            response.setHeader("Content-Disposition", "attachment; filename=\"" + encodedfileName + '"');
+            String encodedName = new String(fileName.getBytes(), "ISO8859-1");
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + encodedName + '"');
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }

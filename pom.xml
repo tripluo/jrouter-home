@@ -3,12 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.4.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>net.jrouter</groupId>
+        <artifactId>j-parent</artifactId>
+        <version>1.3</version>
     </parent>
-    <groupId>net.jrouter</groupId>
     <artifactId>jrouter-home</artifactId>
     <version>${jrouter.version}</version>
     <packaging>war</packaging>
@@ -34,49 +32,25 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
         </dependency>
-
         <!-- jrouter -->
         <dependency>
             <groupId>net.jrouter</groupId>
             <artifactId>jrouter-servlet</artifactId>
             <version>${jrouter.version}</version>
         </dependency>
-
-        <!-- javassist -->
-        <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.24.1-GA</version>
-        </dependency>
-
         <!-- thymeleaf -->
         <dependency>
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf-spring5</artifactId>
             <version>${thymeleaf.version}</version>
         </dependency>
-
         <!-- freemarker -->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
             <version>${freemarker.version}</version>
         </dependency>
-
         <!-- springframework -->
-        <!--
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -89,6 +63,11 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
@@ -99,7 +78,6 @@
             <version>${tomcat.version}</version>
             <scope>provided</scope>
         </dependency>
-
         <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -107,7 +85,6 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
-
         <!-- spring-boot-starter-test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -125,11 +102,11 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>6.14.3</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
+        <finalName>${artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -139,7 +116,7 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <useIncrementalCompilation>false</useIncrementalCompilation>
+                    <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
             <!-- exec -->
@@ -149,10 +126,6 @@
                 <configuration>
                     <classpathScope>compile</classpathScope>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -204,13 +177,10 @@
         </profile>
     </profiles>
     <properties>
-        <jrouter.version>1.8.0</jrouter.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
+        <jrouter.version>1.8.3</jrouter.version>
         <spring-boot.run.jvmArguments>
             <!---Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005-->
         </spring-boot.run.jvmArguments>
-        <java.version>1.8</java.version>
         <!--<jetty.http.port>9999</jetty.http.port>-->
     </properties>
 </project>
